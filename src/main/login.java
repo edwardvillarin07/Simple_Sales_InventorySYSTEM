@@ -5,7 +5,11 @@
 package main;
 
 import java.awt.Color;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -93,6 +97,7 @@ public class login extends javax.swing.JFrame {
         jSeparator5 = new javax.swing.JSeparator();
         jLabel66 = new javax.swing.JLabel();
         jCheckBox1 = new javax.swing.JCheckBox();
+        jLabel48 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         kGradientPanel1.setBackground(new java.awt.Color(204, 255, 204));
@@ -399,18 +404,19 @@ public class login extends javax.swing.JFrame {
         kGradientPanel2.add(kButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 10, 10, 20));
 
         jLabel46.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel46.setText("Sign in into your account.");
-        kGradientPanel2.add(jLabel46, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 160, -1, -1));
+        jLabel46.setText("Your account.");
+        kGradientPanel2.add(jLabel46, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 130, -1, 20));
 
         jLabel47.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel47.setForeground(new java.awt.Color(255, 255, 255));
         jLabel47.setText("LOGIN");
-        kGradientPanel2.add(jLabel47, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 110, -1, -1));
+        kGradientPanel2.add(jLabel47, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, 120, -1));
 
         password.setBackground(new java.awt.Color(84, 149, 246));
         password.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         password.setForeground(new java.awt.Color(255, 255, 255));
         password.setBorder(null);
+        password.setOpaque(false);
         password.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 passwordActionPerformed(evt);
@@ -422,7 +428,9 @@ public class login extends javax.swing.JFrame {
         jLabel65.setForeground(new java.awt.Color(255, 255, 255));
         jLabel65.setText("User name :");
         kGradientPanel2.add(jLabel65, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, -1, -1));
-        kGradientPanel2.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 160, 150, 10));
+
+        jSeparator5.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        kGradientPanel2.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 110, 30, 50));
 
         jLabel66.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel66.setForeground(new java.awt.Color(255, 255, 255));
@@ -442,6 +450,10 @@ public class login extends javax.swing.JFrame {
             }
         });
         kGradientPanel2.add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 360, -1, -1));
+
+        jLabel48.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel48.setText("Sign in into");
+        kGradientPanel2.add(jLabel48, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 110, -1, 30));
 
         getContentPane().add(kGradientPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 0, 340, 460));
 
@@ -473,14 +485,17 @@ public class login extends javax.swing.JFrame {
     }//GEN-LAST:event_usernameActionPerformed
 
     private void kButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kButton5ActionPerformed
-        if (username.getText().equals("admin") || password.getPassword().equals("0147")) {
+        String user = username.getText();
+        String pass = new String(password.getPassword());
+        if (user.equals("admin") && pass.equals("0147")) {
             new dashboard().setVisible(true);
             dispose();
-        } else if (username.getText().equals("cashier") || password.getPassword().equals("0258")) {
+        } else if (user.equals("cashier") && pass.equals("0258")) {
             new cashier_dash().setVisible(true);
             dispose();
         } else {
-            JOptionPane.showMessageDialog(null, "Incorrect Username Or Password", "Login Failed", JOptionPane.ERROR_MESSAGE);
+            String e = "Wrong password! Please try again.";
+            JOptionPane.showMessageDialog(null, e);
         }
     }//GEN-LAST:event_kButton5ActionPerformed
 
@@ -497,7 +512,7 @@ public class login extends javax.swing.JFrame {
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
     private void passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordActionPerformed
-         if (username.getText().equals("admin") || password.getPassword().equals("0147")) {
+        if (username.getText().equals("admin") || password.getPassword().equals("0147")) {
             new dashboard().setVisible(true);
             dispose();
         } else if (username.getText().equals("cashier") || password.getPassword().equals("0258")) {
@@ -506,7 +521,7 @@ public class login extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Incorrect Username Or Password", "Login Failed", JOptionPane.ERROR_MESSAGE);
         }
-         
+
     }//GEN-LAST:event_passwordActionPerformed
 
     /**
@@ -577,6 +592,7 @@ public class login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel46;
     private javax.swing.JLabel jLabel47;
+    private javax.swing.JLabel jLabel48;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel63;
